@@ -32,6 +32,11 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
+
+function closeWindow() {
+  window.electronAPI.closeWindow(); // Calls the function exposed via preload.js
+}
+
 function beautify() {
   document.getElementById("error").style.display = "none";
   const elm = document.getElementById("json-input");
