@@ -1,0 +1,22 @@
+{
+  "name": "qucikapi",
+  "version": "1.0.0",
+  "description": "set a server on port 3020 and return the json that placed inside the webview text area",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "deploy": "electron-packager . wapp --overwrite --asar=true --platform=win32 --arch=x64 --out=release-builds --icon=icon.ico"
+  },
+  "author": "Eivgeniy Gudilov",
+  "license": "MIT",
+  "icon": "icon.ico",
+  "devDependencies": {
+    "electron": "^30.0.1",
+    "electron-builder": "^24.13.3",
+    "electron-packager": "^17.1.2"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2"
+  }
+}
