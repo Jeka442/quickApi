@@ -5,6 +5,7 @@ const sync = document.getElementById("sync");
 const apiSelect = document.getElementById("api-select");
 const editNameBtn = document.getElementById("edit-name");
 const addNameBtn = document.getElementById("add-name");
+const deleteNameBtn = document.getElementById("delete-name");
 const submitDialog = document.querySelector("#submit-name");
 const submitNameBtn = document.querySelector("#submit-name > button");
 const submitNameInput = document.querySelector("#submit-name > input");
@@ -16,8 +17,12 @@ function setToTextarea(obj) {
 function setSync(flag) {
   sync.setAttribute("data-for-sync", `${flag}`);
   apiSelect.disabled = !flag;
-  addNameBtn.disabled = !flag;
   editNameBtn.disabled = !flag;
+  addNameBtn.disabled = !flag;
+  deleteNameBtn.disabled = !flag;
+  if (!flag) {
+    submitDialog.style.height = "0";
+  }
 }
 function setLoading(flag) {
   sync.setAttribute("data-for-loading", `${flag}`);
