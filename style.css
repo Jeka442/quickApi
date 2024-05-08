@@ -1,0 +1,143 @@
+:root {
+  --background-color: #1f1f1f;
+  --drag-color: #555555;
+  --input-color: #2a2a2a;
+  --text-color: #ffffff;
+  --button-color: #418adf;
+  --button-hover-color: #0056b3;
+  --error: #e72f2f;
+  --good-state: #44e72f;
+}
+
+* {
+  box-sizing: border-box;
+  padding-inline: 0;
+  margin: 0;
+}
+
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+#container {
+  padding-inline: 10px;
+}
+
+input,
+select {
+  padding: 10px;
+  border: 2px solid var(--input-color);
+  border-radius: 5px;
+  font-size: 16px;
+  width: 200px;
+}
+#textarea-panel {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#json-input {
+  padding: 5px;
+}
+
+#subtitle {
+  margin-block: 10px;
+  max-width: 500px;
+  margin-bottom: 20px;
+}
+
+ul {
+  margin-left: 30px;
+}
+
+#sync {
+  cursor: pointer;
+  font-weight: bold;
+  padding-inline: 12px;
+  padding-block: 7px;
+  border-radius: 6px;
+  position: relative;
+}
+
+#sync[data-for-sync="true"] {
+  border: 1px solid var(--good-state);
+}
+
+#sync[data-for-sync="false"] {
+  border: 1px solid var(--error);
+}
+
+#sync:hover {
+  color: var(--button-color);
+  border: 1px solid var(--button-hover-color);
+}
+
+#sync[data-for-loading="true"]::before {
+  content: "Loading...";
+  position: absolute;
+  right: 110%;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 12px;
+}
+
+#textarea-container {
+  margin-top: 10px;
+  position: relative;
+}
+#beautify {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}
+/* Button styles */
+button {
+  padding: 10px 20px;
+  border: none;
+  background-color: var(--button-color);
+  color: #fff;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button[disabled] {
+  background-color: var(--button-color);
+  opacity: 0.5;
+}
+
+#submit-name {
+  height: 0;
+  overflow: hidden;
+}
+
+#close-btn {
+  cursor: pointer;
+  -webkit-app-region: no-drag; /* Ensures the close button is clickable */
+  color: var(--button-color);
+  font-size: 20px;
+}
+#close-btn:hover {
+  color: var(--error);
+}
+button:hover {
+  background-color: var(--button-hover-color);
+}
+
+#close-btn:hover {
+  color: var(--error);
+}
+#draggable-area {
+  -webkit-app-region: drag;
+  height: 40px; /* Fixed height */
+  width: 100%; /* Full width */
+  background-color: var(--drag-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-inline: 10px;
+  color: var(--button-color);
+}

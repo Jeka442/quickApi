@@ -2,95 +2,56 @@
 <html>
   <head>
     <title>JSON Editor</title>
-    <style>
-      :root {
-        --background-color: #1f1f1f; /* Dark background color */
-        --drag-color: #555555; /* Dark background color */
-        --input-color: #2a2a2a; /* Slightly lighter shade for input fields */
-        --text-color: #ffffff; /* Light color for text */
-        --button-color: #418adf; /* Green color for buttons (you can choose any color you like) */
-      }
-
-      * {
-        box-sizing: border-box;
-      }
-
-      body {
-        background-color: var(--background-color);
-        color: var(--text-color);
-      }
-
-      input {
-        padding: 10px;
-        border: 2px solid var(--input-color);
-        border-radius: 5px;
-        font-size: 16px;
-        width: 200px;
-      }
-
-      /* Button styles */
-      button {
-        padding: 10px 20px;
-        border: none;
-        background-color: var(--button-color);
-        color: #fff;
-        border-radius: 5px;
-        font-size: 16px;
-        cursor: pointer;
-        transition: background-color 0.3s;
-      }
-      #close-btn {
-        cursor: pointer;
-        -webkit-app-region: no-drag; /* Ensures the close button is clickable */
-        color: var(--button-color);
-        font-size: 20px;
-      }
-      #close-btn:hover {
-        color: red;
-      }
-      button:hover {
-        background-color: #0056b3;
-      }
-
-      #close-btn:hover {
-        color: red;
-      }
-      #draggable-area {
-        -webkit-app-region: drag;
-        height: 40px; /* Fixed height */
-        width: 100%; /* Full width */
-        background-color: var(--drag-color);
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding-inline: 10px;
-        color: var(--button-color);
-      }
-    </style>
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <div id="draggable-area">
       <h1>Quick Api</h1>
       <span id="close-btn" onclick="closeWindow()">X</span>
     </div>
-    <p>Creating a mock api with given json result.</p>
-    <textarea id="json-input" style="width: 100%; height: 300px"></textarea>
-    <span
-      style="float: right; color: red; font-weight: 600; display: none"
-      id="error"
-      >Invalid json</span
-    >
-    <br />
-    <button onclick="beautify()">Beautify</button>
-    <button onclick="setJson()">Set</button>
-    <br />
-    <h4>How to use:</h4>
-    <ul>
-      <li>Drag and drop a .json file or type json to the textArea</li>
-      <li>Click beautify to check the json</li>
-      <li>Click Set to set the json to the live server</li>
-      <li>Make an api call to <b>http://localhost:3020/</b></li>
-    </ul>
+    <div id="container">
+      <p id="subtitle">
+        Dynamic live server on localhost. Featuring a user-friendly webview,
+        developers can add, edit, and manage API endpoints and responses
+        directly, streamlining testing and development processes.
+      </p>
+      <div id="textarea-panel">
+        <div>
+          <select id="api-select" onchange="changeApi(this)"></select>
+          <button id="edit-name" onclick="editName()">edit</button>
+          <button id="add-name" onclick="addName()">add</button>
+          <button id="delete-name" onclick="deleteName()">Delete</button>
+        </div>
+        <div
+          onclick="setJson()"
+          id="sync"
+          data-for-sync="false"
+          data-for-loading="true"
+        >
+          <span>sync</span>
+        </div>
+      </div>
+      <div id="submit-name">
+        <input placeholder="Insert api name" />
+        <button onclick="submitNameHandler(this)">submit</button>
+      </div>
+      <div id="textarea-container">
+        <textarea id="json-input" style="width: 100%; height: 300px"></textarea>
+        <button onclick="beautify()" id="beautify">Beautify</button>
+      </div>
+      <span
+        style="float: right; color: red; font-weight: 600; display: none"
+        id="error"
+        >Invalid json</span
+      >
+      <h4>How to use:</h4>
+      <ul>
+        <li>Drag and drop a .json file or type json to the textArea</li>
+        <li>Click beautify to check the json</li>
+        <li>Click sync to set the json to the live server</li>
+        <li>Make an api call to <b>http://localhost:3020/:name</b></li>
+      </ul>
+    </div>
     <script src="renderer.js"></script>
   </body>
 </html>
