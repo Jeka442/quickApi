@@ -76,6 +76,7 @@ document.addEventListener("DOMContentLoaded", () => {
           const reader = new FileReader();
           reader.onload = function (e) {
             jsonInput.value = e.target.result;
+            setSync(false);
           };
           reader.readAsText(file);
         }
