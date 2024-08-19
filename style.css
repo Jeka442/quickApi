@@ -120,6 +120,19 @@ button[disabled] {
   color: var(--button-color);
   font-size: 20px;
 }
+#minimize-button {
+  cursor: pointer;
+  font-size: 30px;
+  -webkit-app-region: no-drag; /* Ensures the close button is clickable */
+  color: var(--button-color);
+  position: relative;
+  transform: translateY(-3px);
+}
+
+#minimize-button:hover {
+  color: var(--error);
+}
+
 #close-btn:hover {
   color: var(--error);
 }

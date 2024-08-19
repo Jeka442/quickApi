@@ -1,6 +1,8 @@
 const basePath = "http://localhost:3020/";
 
 const jsonInput = document.getElementById("json-input");
+const statusInput = document.getElementById("status");
+const delayInput = document.getElementById("delay");
 const sync = document.getElementById("sync");
 const apiSelect = document.getElementById("api-select");
 const editNameBtn = document.getElementById("edit-name");
@@ -36,17 +38,28 @@ async function onLoad() {
   apiSelect.innerHTML = options;
   setSync(true);
   setLoading(true);
-  setToTextarea((await getByName(endpoints[0])) ?? {});
+  const data = await getByName(endpoints[0]);
+  setToTextarea(data?.obj ?? {});
+  delayInput.value = data?.delay ?? 0;
+  statusInput.value = data?.status ?? 200;
   setLoading(false);
 }
 onLoad();
 
 async function getByName(name) {
-  const data = await (await fetch(basePath + name)).json();
+  const data = await (await fetch(basePath + "name/" + name)).json();
   return data;
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+  statusInput.addEventListener("change", function (event) {
+    setSync(false);
+  });
+
+  delayInput.addEventListener("change", function (event) {
+    setSync(false);
+  });
+
   jsonInput.addEventListener("keydown", function (event) {
     if (event.key === "Tab") {
       event.preventDefault();
@@ -89,6 +102,10 @@ function closeWindow() {
   window.electronAPI.closeWindow(); // Calls the function exposed via preload.js
 }
 
+function minimize() {
+  window.electronAPI.minimizeWindow(); // Calls the function exposed via preload.js
+}
+
 function beautify() {
   document.getElementById("error").style.display = "none";
   const elm = document.getElementById("json-input");
@@ -104,6 +121,8 @@ function beautify() {
 async function setJson() {
   try {
     const value = document.getElementById("json-input").value;
+    const status = statusInput.value;
+    const delay = delayInput.value;
     const name = apiSelect.value;
     if (value && value.length > 0) {
       const json = JSON.parse(value);
@@ -117,6 +136,8 @@ async function setJson() {
         body: JSON.stringify({
           name: name,
           obj: json,
+          status: status,
+          delay: delay,
         }),
       });
       if (result.status === 200) {
@@ -131,17 +152,10 @@ async function setJson() {
 }
 
 async function changeApi(e) {
-  setToTextarea(await getByName(e.value));
-}
-
-function addName() {
-  submitDialog.style.height = "100%";
-  submitNameBtn.setAttribute("data-for", "add");
-}
-
-function editName() {
-  submitDialog.style.height = "100%";
-  submitNameBtn.setAttribute("data-for", "edit");
+  const data = await getByName(e.value);
+  setToTextarea(data?.obj ?? {});
+  delayInput.value = data?.delay ?? 0;
+  statusInput.value = data?.status ?? 200;
 }
 
 async function submitNameHandler(doc) {
@@ -167,6 +181,8 @@ async function submitNameHandler(doc) {
             `<option value="${newName}">${newName}</option>`;
           apiSelect.value = newName;
           jsonInput.value = "{}";
+          delayInput.value = 0;
+          statusInput.value = 200;
           break;
         }
         case 409: {

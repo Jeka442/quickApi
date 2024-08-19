@@ -1,6 +1,8 @@
 [
-   {
-      "name": "main",
-      "obj": {}
-   }
+  {
+    "name": "main",
+    "obj": {},
+    "status": "200",
+    "delay": "0"
+  }
 ]
