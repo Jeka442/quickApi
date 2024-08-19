@@ -117,7 +117,15 @@ function beautify() {
     document.getElementById("error").style.display = "block";
   }
 }
+function addName() {
+  submitDialog.style.height = "100%";
+  submitNameBtn.setAttribute("data-for", "add");
+}
 
+function editName() {
+  submitDialog.style.height = "100%";
+  submitNameBtn.setAttribute("data-for", "edit");
+}
 async function setJson() {
   try {
     const value = document.getElementById("json-input").value;
