@@ -159,6 +159,24 @@ async function setJson() {
   }
 }
 
+async function uploadDB() {
+  window.electronAPI.uploadDB();
+}
+
+window.electronAPI.onUploadDBReply((event, result) => {
+  if (result.success) {
+    alert(result.message);
+    onLoad();
+  } else {
+    alert("Error: " + result.message);
+  }
+});
+
+
+async function downloadDB() {
+  window.electronAPI.downloadDB();
+}
+
 async function changeApi(e) {
   const data = await getByName(e.value);
   setToTextarea(data?.obj ?? {});

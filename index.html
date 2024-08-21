@@ -7,7 +7,14 @@
   <body>
     <div id="draggable-area">
       <h1>Quick Api</h1>
-      <div style="display: flex; justify-content: center; align-items: center; gap: 10px">
+      <div
+        style="
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 10px;
+        "
+      >
         <span id="minimize-button" onclick="minimize()">-</span>
         <span id="close-btn" onclick="closeWindow()">X</span>
       </div>
@@ -18,6 +25,11 @@
         developers can add, edit, and manage API endpoints and responses
         directly, streamlining testing and development processes.
       </p>
+      <div>
+        <input type="file" id="db-input" accept=".json" />
+        <button onclick="uploadDB()">Upload DB</button>
+        <button onclick="downloadDB()">Download DB</button>
+      </div>
       <div id="textarea-panel">
         <div>
           <select id="api-select" onchange="changeApi(this)"></select>
