@@ -37,6 +37,14 @@ app.get("/name/:id", async (req, res) => {
 });
 
 app.get("/api/:id", async (req, res) => {
+  await handleRequest(req, res);
+});
+
+app.post("/api/:id", async (req, res) => {
+  await handleRequest(req, res);
+});
+
+async function handleRequest(req, res) {
   try {
     const db = await getDb();
     const result = db.find((item) => item.name === req.params.id);
@@ -55,7 +63,9 @@ app.get("/api/:id", async (req, res) => {
     console.error("Error fetching data:", error);
     res.status(500).send("Internal Server Error");
   }
-});
+}
+
+
 
 const sleep = async (delay) => {
   return new Promise((resolve) => {
